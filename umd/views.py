@@ -8,7 +8,7 @@ from umd.forms import URLForm
 
 def index(request):
 
-	url_list = URL.objects.order_by('url') [:5]
+	url_list = URL.objects.order_by('url')
 	'''a= "<b>hello world.. </b></br>"
 	url_list = URL.objects.order_by('url') [:5]
 	output = ', '.join([p.url for p in url_list])
