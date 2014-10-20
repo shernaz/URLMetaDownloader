@@ -1,0 +1,23 @@
+<h1>{{ url.url }}</h1>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'modify' url.id %}" method="post">
+{% csrf_token %}
+
+<ul>
+<li>
+Url             :<input type="text" size="50" name="url" value="{{url.url}}">
+</li>
+<li>
+Title           :<input type="text" size="50" name="title" value="{{url.title}}">
+</li>
+<li>
+Meta Sescription:<input type="text" size="50" name="meta_desc" value="{{url.meta_desc}}">
+</li>
+<li>
+Meta Keyword    :<input type="text" size="50" name="meta_keyword" value="{{url.meta_keyword}}">
+</li>
+</ul>
+<input type="submit" value="Modify" />
+
+

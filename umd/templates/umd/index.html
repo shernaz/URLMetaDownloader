@@ -1,0 +1,14 @@
+{% if url_list %}
+    <ul>
+    {% for url in url_list %}
+        <!--<li><a href="/umd/{{ url.id }}/">{{ url.url }}</a></li>-->
+		<li><a href="{% url 'detail' url.id %}">{{ url.url }}</a></li>
+
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No urls are available.</p>
+{% endif %}
+
+<h3>
+<a href="{% url 'add'  %}"> Add a new Url </a></li>
