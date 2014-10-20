@@ -37,6 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'umd',
+	'twitter_bootstrap',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -85,5 +87,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.static',
+	'django.contrib.auth.context_processors.auth',
+)
 
-STATIC_URL = '/static/'
+STATIC_URL='/static/'
+ROOT_PATH = os.path.join(os.path.dirname(__file__), '..')  # up one level from settings.py
+STATICFILES_DIRS = (
+    os.path.abspath(os.path.join(ROOT_PATH, 'static')), # static is on root level
+)
