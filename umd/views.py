@@ -4,11 +4,11 @@ from umd.models import URL
 from django.template import RequestContext, loader
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
-from umd.forms import URLForm
+from umd.forms import URLForm,URLModifyForm
 
 def index(request):
 
-	url_list = URL.objects.order_by('url')
+	url_list = URL.objects.order_by('-id')
 	'''a= "<b>hello world.. </b></br>"
 	url_list = URL.objects.order_by('url') [:5]
 	output = ', '.join([p.url for p in url_list])
@@ -35,24 +35,34 @@ def detail(request, url_id):
 	return render(request, 'umd/detail.html', {'url': url})
 	'''
 	u = get_object_or_404(URL, pk=url_id)
-	return render(request, 'umd/detail.html', {'url': u})
+	form=URLModifyForm(initial={'url': u.url,'title':u.title,'meta_desc':u.meta_desc,'meta_keyword':u.meta_keyword})
+	
+	return render(request, 'umd/detail_new.html', {'url': u , 'form': form})
 # Create your views here.
 
 def modify(request, url_id):
-	
+	'''if request.is_ajax():
+		message = "Yes, AJAX!"
+	else:
+		message = "Not Ajax"
+	return HttpResponse(message)
+	'''
 	p = get_object_or_404(URL, pk=url_id)
 	p.url=request.POST['url']
 	p.title=request.POST['title']
 	p.meta_desc=request.POST['meta_desc']
 	p.meta_keyword=request.POST['meta_keyword']
 	p.save()
+	
 	return HttpResponseRedirect(reverse('detail', args=(p.id,)))
+	
 	#return HttpResponseRedirect(reverse('detail'))
 	#render(request, 'umd/detail.html', {'url': url})
 	
 def add(request):
 	
-	return render(request, 'umd/add.html')
+	return render(request, 'umd/add_new.html', { 'form':URLForm()})
+
 	
 def add_url(request):
 	
